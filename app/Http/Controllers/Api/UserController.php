@@ -30,7 +30,7 @@ class UserController extends Controller
             $user = User::query()->updateOrCreate($userInfo, $userInfo);
 
             $sessionInfo = ['access_token' => $data['access_token']];
-            $session = $user->session()->updateOrCreate(['user_id' => $user->id], $sessionInfo);
+            $session = $user->session()->firstOrCreate(['user_id' => $user->id], $sessionInfo);
             if(!empty($session)) {
                 $session->update($sessionInfo);
             }
